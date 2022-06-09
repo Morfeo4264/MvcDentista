@@ -20,10 +20,42 @@ namespace MvcDentista.Controllers
         }
 
         // GET: Pacientes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string apellidoPaciente, string searchString)
         {
-            return View(await _context.Paciente.ToListAsync());
+            // Use LINQ to get list of genres.
+            IQueryable<string> genreQuery = from m in _context.Paciente
+                                            orderby m.Apellido
+                                            select m.Apellido;
+
+            var pacientes = from m in _context.Paciente
+                         select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                pacientes = pacientes.Where(s => s.Nombre.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(apellidoPaciente))
+            {
+                pacientes = pacientes.Where(x => x.Apellido == apellidoPaciente);
+            }
+
+            var pacienteApellidoVM = new ApellidoPacienteViewModel
+            {
+                Apellido = new SelectList(await genreQuery.Distinct().ToListAsync()),
+                Pacientes = await pacientes.ToListAsync()
+            };
+
+            return View(pacienteApellidoVM);
         }
+
+        //
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+
 
         // GET: Pacientes/Details/5
         public async Task<IActionResult> Details(int? id)

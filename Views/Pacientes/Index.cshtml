@@ -1,43 +1,55 @@
-﻿@model IEnumerable<MvcDentista.Models.Paciente>
+﻿@model MvcDentista.Models.ApellidoPacienteViewModel
 
 @{
-    ViewData["Title"] = "Lista de Pacientes";
+    ViewData["Title"] = "Lista";
 }
 
-<h1>Index</h1>
+<h1>Lista de Pacientes</h1>
 
 <p>
     <a asp-action="Create">Crear nuevo registro</a>
 </p>
+
+
+<form asp-controller="Pacientes" asp-action="Index" method="get">
+    <p>
+        <select asp-for="ApellidoPaciente" asp-items="Model.Apellido">
+            <option value="">Todos</option>
+        </select>
+        Nombre: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filtro" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Html.DisplayNameFor(model => model.Pacientes[0].Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Apellido)
+                @Html.DisplayNameFor(model => model.Pacientes[0].Apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaAsistencia)
+                @Html.DisplayNameFor(model => model.Pacientes[0].FechaAsistencia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Domicilio)
+                @Html.DisplayNameFor(model => model.Pacientes[0].Domicilio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Localidad)
+                @Html.DisplayNameFor(model => model.Pacientes[0].Localidad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Profesion)
+                @Html.DisplayNameFor(model => model.Pacientes[0].Profesion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Edad)
+                @Html.DisplayNameFor(model => model.Pacientes[0].Edad)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Pacientes) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
@@ -61,9 +73,9 @@
                 @Html.DisplayFor(modelItem => item.Edad)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
             </td>
         </tr>
 }

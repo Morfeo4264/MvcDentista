@@ -10,20 +10,29 @@ namespace MvcDentista.Models
 
         public int Id { get; set; }
 
+        [StringLength(60, MinimumLength = 3)]
         public string Nombre { get; set; }
 
+
+        [StringLength(60, MinimumLength = 3)]
         public string Apellido { get; set; }
 
-        [DataType(DataType.Date)]
 
+        [Display(Name = "Fecha de Asistencia"), DataType(DataType.Date)]
         public DateTime FechaAsistencia { get; set; }
 
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$"), StringLength(5)]
         public string Domicilio { get; set; }
 
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$"), StringLength(5)]
         public string Localidad { get; set; }
 
+        [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$"), StringLength(5)]
         public string Profesion { get; set; }
 
+        
         public int Edad { get; set; }
 
 
