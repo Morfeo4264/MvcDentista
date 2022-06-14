@@ -18,7 +18,7 @@ namespace MvcDentista.Models
         public string Apellido { get; set; }
 
 
-        [Display(Name = "Fecha de Asistencia"), DataType(DataType.Date)]
+        [Display(Name = "Fecha de Asistencia"), DataType(DataType.DateTime)]
         public DateTime FechaAsistencia { get; set; }
 
 
